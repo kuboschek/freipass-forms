@@ -40,7 +40,7 @@ body {
     font-family: 'Noto Sans', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 }
 
-.wrap {
+main {
     width: min(960px, 100% - 2rem);
     margin-inline: auto;
     text-align: center;
@@ -50,6 +50,10 @@ body {
     justify-items: center;
     padding-block: 0;
     height: 100%;
+}
+
+.narrow {
+    max-width: 600px;
 }
 
 h1 {
@@ -110,7 +114,7 @@ h1 {
 }
 
 @media (min-width: 1024px) {
-    .wrap {
+    main {
         justify-items: center;
     }
 
