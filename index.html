@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>freipass.ch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jockey+One&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <a href="https://freipass.ch" id="back-link"><span aria-hidden="true">&#8592;</span> <span id="back-link-text">zurück zu freipass.ch</span></a>
+    <main class="wrap">
+        <h1 id="title">freipass.ch</h1>
+        <p class="subtitle" id="subtitle">Meine Daten verwalten</p>
+        <div class="actions">
+            <a class="btn" id="btn-subscribe" href="/anmelden/">Für Rundbrief anmelden</a>
+            <a class="btn" id="btn-address" href="/adresse/">Adresse aktualisieren</a>
+        </div>
+    </main>
+
+    <script>
+        (function () {
+            try {
+                // Check for lang query parameter
+                const params = new URLSearchParams(window.location.search);
+                let lang = params.get('lang');
+                if (!lang) {
+                    lang = (navigator.language || navigator.userLanguage || 'de').toLowerCase();
+                } else {
+                    lang = lang.toLowerCase();
+                }
+                const isGerman = lang.startsWith('de');
+                const t = isGerman ? {
+                    subtitle: 'Meine Daten verwalten',
+                    address: 'Adresse aktualisieren',
+                    subscribe: 'Zum Rundbrief anmelden',
+                    back: 'zurück zu freipass.ch'
+                } : {
+                    subtitle: 'Manage your details',
+                    address: 'Update address',
+                    subscribe: 'Subscribe to newsletter',
+                    back: 'back to freipass.ch'
+                };
+                document.documentElement.lang = isGerman ? 'de' : 'en';
+                const subtitle = document.getElementById('subtitle');
+                const btnAddress = document.getElementById('btn-address');
+                const btnSubscribe = document.getElementById('btn-subscribe');
+                const backLinkText = document.getElementById('back-link-text');
+                if (subtitle) subtitle.textContent = t.subtitle;
+                if (btnAddress) btnAddress.textContent = t.address;
+                if (btnSubscribe) btnSubscribe.textContent = t.subscribe;
+                if (backLinkText) backLinkText.textContent = t.back;
+
+                // Pass lang param to subpages if present
+                if (params.get('lang')) {
+                    const langParam = '?lang=' + encodeURIComponent(params.get('lang'));
+                    if (btnAddress) btnAddress.setAttribute('href', '/adresse/' + langParam);
+                    if (btnSubscribe) btnSubscribe.setAttribute('href', '/anmelden/' + langParam);
+                }
+            } catch (_) { /* no-op */ }
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,17 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreiPass Adressaktualisierung</title>
     <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
-    <header class="logo">
-        <img src="https://freipass.ch/img/freipassaltlogo.svg" alt="FreiPass Logo">
-    </header>
-    <main>
-        <script src="https://webform.statslive.info/ow/eyJpdiI6InlpMk5saVFqa29JYW1sR05NenFVVzkzeklzZ0pcLzRUY3JSWUNoazM3dzhjPSIsIm1hYyI6ImM3NThkMTljMzk5M2U5Nzk5YzY3YzdlYWYyNzcyZjZlNzAzZDUyOTQxYzc0ZTdhYjBjYzA1ZDU3MGRmYmQ4ZmUiLCJ2YWx1ZSI6IlBoNGVJa2ZubzRjVW5VMzI0eitCSyt1c1JjSytwclZoZnJKTUdROW9TRkk9In0=" type="text/javascript"></script>
-    </main>
+    <a href="/" id="back-link"><span aria-hidden="true">&#8592;</span> <span id="back-link-text">zurück zur Übersicht</span></a>
+    <div class="vertical-layout">
+        <header class="logo">
+            <img src="https://freipass.ch/img/freipassaltlogo.svg" alt="FreiPass Logo">
+        </header>
+        <main>
+            <script src="https://webform.statslive.info/ow/eyJpdiI6InlpMk5saVFqa29JYW1sR05NenFVVzkzeklzZ0pcLzRUY3JSWUNoazM3dzhjPSIsIm1hYyI6ImM3NThkMTljMzk5M2U5Nzk5YzY3YzdlYWYyNzcyZjZlNzAzZDUyOTQxYzc0ZTdhYjBjYzA1ZDU3MGRmYmQ4ZmUiLCJ2YWx1ZSI6IlBoNGVJa2ZubzRjVW5VMzI0eitCSyt1c1JjSytwclZoZnJKTUdROW9TRkk9In0=" type="text/javascript"></script>
+        </main>
+    </div>
+    <script>
+        (function () {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                let lang = params.get('lang');
+                if (!lang) {
+                    lang = (navigator.language || navigator.userLanguage || 'de').toLowerCase();
+                } else {
+                    lang = lang.toLowerCase();
+                }
+                const isGerman = lang.startsWith('de');
+                const t = isGerman ? {
+                    back: 'zurück zur Übersicht'
+                } : {
+                    back: 'back to overview'
+                };
+                const backLinkText = document.getElementById('back-link-text');
+                const backLink = document.getElementById('back-link');
+                if (backLinkText) backLinkText.textContent = t.back;
+                // Pass lang param to back link if present
+                if (params.get('lang') && backLink) {
+                    backLink.setAttribute('href', '/?lang=' + encodeURIComponent(params.get('lang')));
+                }
+            } catch (_) { /* no-op */ }
+        })();
+    </script>
 </body>
+
 </html>
